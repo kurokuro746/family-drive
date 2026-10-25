@@ -39,29 +39,35 @@
         const msalInstance = new msal.PublicClientApplication(msalConfig);
 
         (async () => {
+
             await msalInstance.initialize();
+
+            const response =
+                await msalInstance.handleRedirectPromise();
+
+            if (response) {
+                showUser(response.account);
+            }
 
             const accounts = msalInstance.getAllAccounts();
 
             if (accounts.length > 0) {
                 showUser(accounts[0]);
             }
-        })();
 
+        })();
+       
         async function signIn() {
 
             try {
 
-                const loginResponse =
-                    await msalInstance.loginPopup({
-                        scopes: [
-                            "User.Read",
-                            "Files.Read",
-                            "Files.ReadWrite"
-                        ]
-                    });
-
-                showUser(loginResponse.account);
+                await msalInstance.loginRedirect({
+                    scopes: [
+                        "User.Read",
+                        "Files.Read",
+                        "Files.ReadWrite"
+                    ]
+                });
 
             } catch (error) {
 
