@@ -38,7 +38,13 @@
 
         const msalInstance = new msal.PublicClientApplication(msalConfig);
 
+        (async () => {
+            await msalInstance.initialize();
+        })();
+
         async function signIn() {
+
+            await msalInstance.initialize();
 
             try {
 
