@@ -1,11 +1,109 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>Family Drive</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Drive</title>
+
+    <script src="https://alcdn.msauth.net/browser/2.38.3/js/msal-browser.min.js"></script>
 </head>
 <body>
-  <h1>Family Drive</h1>
-  <p>準備中</p>
+
+    <h1>Family Drive</h1>
+
+    <button id="loginButton">
+        Microsoftでログイン
+    </button>
+
+    <button id="logoutButton" style="display:none;">
+        ログアウト
+    </button>
+
+    <div id="userInfo"></div>
+
+    <script>
+
+        const msalConfig = {
+            auth: {
+                clientId: "815ff81e-8462-4eb0-a444-5a63070a1425",
+                authority: "https://login.microsoftonline.com/consumers",
+                redirectUri: "https://kurokuro746.github.io/family-drive/"
+            }
+        };
+
+        const msalInstance = new msal.PublicClientApplication(msalConfig);
+
+        async function signIn() {
+
+            try {
+
+                const loginResponse =
+                    await msalInstance.loginPopup({
+                        scopes: [
+                            "User.Read",
+                            "Files.Read",
+                            "Files.ReadWrite"
+                        ]
+                    });
+
+                showUser(loginResponse.account);
+
+            } catch (error) {
+
+                console.error(error);
+
+            }
+        }
+
+        async function signOut() {
+
+            const account = msalInstance.getAllAccounts()[0];
+
+            if (account) {
+
+                await msalInstance.logoutPopup({
+                    account: account
+                });
+
+            }
+
+            location.reload();
+
+        }
+
+        function showUser(account) {
+
+            document.getElementById("userInfo").innerHTML =
+                `
+                <p>ログイン中</p>
+                <p>${account.username}</p>
+                `;
+
+            document.getElementById("loginButton").style.display =
+                "none";
+
+            document.getElementById("logoutButton").style.display =
+                "inline";
+
+        }
+
+        const accounts = msalInstance.getAllAccounts();
+
+        if (accounts.length > 0) {
+
+            showUser(accounts[0]);
+
+        }
+
+        document
+            .getElementById("loginButton")
+            .addEventListener("click", signIn);
+
+        document
+            .getElementById("logoutButton")
+            .addEventListener("click", signOut);
+
+    </script>
+
 </body>
 </html>
