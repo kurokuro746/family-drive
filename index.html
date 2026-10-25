@@ -43,7 +43,7 @@
         };
 
         const msalInstance = new msal.PublicClientApplication(msalConfig);
-        let folderHistory = [];
+        let folderPath = [];
 
         (async () => {
 
@@ -100,7 +100,7 @@
                         <li>
                             📁
                             <a href="#"
-                               onclick="openFolder('${item.id}')">
+                               onclick="openFolder('${item.id}','${item.name}')">
                                 ${item.name}
                             </a>
                         </li>
@@ -119,14 +119,16 @@
         }
        
         async function listFiles() {
-
             console.log("listFiles start");
-
+            folderPath = [
+                {
+                    id: null,
+                    name: "ルート"
+                }
+            ];
             try {
-
                 const account =
                     msalInstance.getAllAccounts()[0];
-
                 const tokenResponse =
                     await msalInstance.acquireTokenSilent({
                         scopes: [
@@ -134,9 +136,7 @@
                         ],
                         account: account
                     });
-
                 console.log("token取得成功");
-
                 const response =
                     await fetch(
                         "https://graph.microsoft.com/v1.0/me/drive/root/children",
@@ -148,40 +148,21 @@
                             }
                         }
                     );
-
-                const data =
-                    await response.json();
-
-                let html = "<h2>OneDriveファイル一覧</h2><ul>";
-                for (const item of data.value) {
-                    if (item.folder) {
-                        html += `
-                            <li>
-                                📁
-                                <a href="#"
-                                   onclick="openFolder('${item.id}')">
-                                    ${item.name}
-                                </a>
-                            </li>
-                        `;
-                    } else {
-                        html += `
-                            <li>
-                                📄 ${item.name}
-                            </li>
-                        `;
-                    }
-                }
-                html += "</ul>";
-                document.getElementById("fileList").innerHTML = html;
+                const data = await response.json();
+                displayFiles(data);
             } catch(error) {
 
                 console.error(error);
             }
         }
 
-        async function openFolder(folderId) {
-            folderHistory.push(folderId);
+        async function openFolder(folderId, folderName) {
+            folderPath.push({
+                id: folderId,
+                name: folderName
+            });
+            console.log("start openFolder");
+            console.log(folderPath);
             try {
                 const account =
                     msalInstance.getAllAccounts()[0];
@@ -206,47 +187,6 @@
             } catch(error) {
                 console.error(error);
             }
-        }
-
-        async function openFolderWithoutHistory(folderId) {
-            folderHistory.push(folderId);
-            try {
-                const account =
-                    msalInstance.getAllAccounts()[0];
-                const tokenResponse =
-                    await msalInstance.acquireTokenSilent({
-                        scopes: ["Files.Read"],
-                        account: account
-                    });
-                const response =
-                    await fetch(
-                        `https://graph.microsoft.com/v1.0/me/drive/items/${folderId}/children`,
-                        {
-                            headers: {
-                                Authorization:
-                                    "Bearer " +
-                                    tokenResponse.accessToken
-                            }
-                        }
-                    );
-                const data = await response.json();
-                displayFiles(data);
-            } catch(error) {
-                console.error(error);
-            }
-        }
-
-        async function goBack() {
-            if (folderHistory.length <= 1) {
-                await listFiles();
-                folderHistory = [];
-                return;
-            }
-
-            folderHistory.pop();
-            const parentFolderId =
-                folderHistory[folderHistory.length - 1];
-            await openFolderWithoutHistory(parentFolderId);
         }
 
         function showUser(account) {
@@ -284,10 +224,6 @@
         document
             .getElementById("listFilesButton")
             .addEventListener("click", listFiles);
-
-        document
-            .getElementById("backButton")
-            .addEventListener("click", goBack);
     </script>
 
 </body>
