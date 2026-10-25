@@ -122,17 +122,57 @@
                     await response.json();
 
                 let html = "<h2>OneDriveファイル一覧</h2><ul>";
-
                 for (const item of data.value) {
-
-                    html += `<li>${item.name}</li>`;
-
+                    if (item.folder) {
+                        html += `
+                            <li>
+                                📁
+                                <a href="#"
+                                   onclick="openFolder('${item.id}')">
+                                    ${item.name}
+                                </a>
+                            </li>
+                        `;
+                    } else {
+                        html += `
+                            <li>
+                                📄 ${item.name}
+                            </li>
+                        `;
+                    }
                 }
                 html += "</ul>";
                 document.getElementById("fileList").innerHTML = html;
-
+                                document.getElementById("fileList").innerHTML = html;
             } catch(error) {
 
+                console.error(error);
+            }
+        }
+        async function openFolder(folderId) {
+
+            try {
+                const account =
+                    msalInstance.getAllAccounts()[0];
+                const tokenResponse =
+                    await msalInstance.acquireTokenSilent({
+                        scopes: ["Files.Read"],
+                        account: account
+                    });
+                const response =
+                    await fetch(
+                        `https://graph.microsoft.com/v1.0/me/drive/items/${folderId}/children`,
+                        {
+                            headers: {
+                                Authorization:
+                                    "Bearer " +
+                                    tokenResponse.accessToken
+                            }
+                        }
+                    );
+                const data = await response.json();
+                console.log(data);
+            } catch(error) {
                 console.error(error);
             }
         }
