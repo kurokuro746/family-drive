@@ -219,13 +219,31 @@
             for (let i = 0; i < folderPath.length; i++) {
 
                 if (i > 0) {
-                    html += " > ";
+                    html += " &gt; ";
                 }
 
-                html += folderPath[i].name;
+                html += `
+                    <a href="#"
+                    onclick="navigateToBreadcrumb(${i})">
+                        ${folderPath[i].name}
+                    </a>
+                `;
             }
 
-            document.getElementById("breadcrumb").innerHTML = html;
+            document.getElementById("breadcrumb").innerHTML =
+                html;
+        }
+        async function navigateToBreadcrumb(index) {
+            folderPath = folderPath.slice(0, index + 1);
+            const targetFolder =
+                folderPath[folderPath.length - 1];
+
+            if (targetFolder.id === null) {
+                await listFiles();
+                return;
+            }
+            await openFolderById(targetFolder.id);
+            renderBreadcrumb();
         }
         async function goBack() {
 
