@@ -87,6 +87,32 @@
 
         }
 
+        function displayFiles(data) {
+            let html = "<h2>OneDriveファイル一覧</h2><ul>";
+            for (const item of data.value) {
+                if (item.folder) {
+                    html += `
+                        <li>
+                            📁
+                            <a href="#"
+                               onclick="openFolder('${item.id}')">
+                                ${item.name}
+                            </a>
+                        </li>
+                    `;
+                } else {
+                    html += `
+                        <li>
+                            📄 ${item.name}
+                        </li>
+                    `;
+                }
+            }
+            html += "</ul>";
+            document.getElementById("fileList").innerHTML =
+                html;
+        }
+       
         async function listFiles() {
 
             console.log("listFiles start");
@@ -143,7 +169,6 @@
                 }
                 html += "</ul>";
                 document.getElementById("fileList").innerHTML = html;
-                                document.getElementById("fileList").innerHTML = html;
             } catch(error) {
 
                 console.error(error);
@@ -171,7 +196,7 @@
                         }
                     );
                 const data = await response.json();
-                console.log(data);
+                displayFiles(data);
             } catch(error) {
                 console.error(error);
             }
