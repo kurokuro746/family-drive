@@ -22,7 +22,12 @@
     <div id="userInfo"></div>
 
     <script>
-
+        console.log("script start");
+        document
+            .getElementById("loginButton")
+            .addEventListener("click", () => {
+                console.log("button clicked");
+            });
         const msalConfig = {
             auth: {
                 clientId: "815ff81e-8462-4eb0-a444-5a63070a1425",
