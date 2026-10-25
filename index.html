@@ -19,14 +19,12 @@
         ログアウト
     </button>
 
+    <div id="breadcrumb"></div>
     <div id="fileList"></div>
-
     <div id="userInfo"></div>
-
     <button id="backButton">
         ← 戻る
     </button>
-
     <button id="listFilesButton">
         ファイル一覧取得
     </button>
@@ -126,6 +124,7 @@
                     name: "ルート"
                 }
             ];
+            renderBreadcrumb();
             try {
                 const account =
                     msalInstance.getAllAccounts()[0];
@@ -160,6 +159,7 @@
                 id: folderId,
                 name: folderName
             });
+            renderBreadcrumb();
             console.log(folderPath);
             try {
                 const account =
@@ -186,7 +186,6 @@
                 console.error(error);
             }
         }
-
         async function openFolderById(folderId) {
             try {
                 const account =
@@ -213,7 +212,21 @@
                 console.error(error);
             }
         }
+        function renderBreadcrumb() {
 
+            let html = "";
+
+            for (let i = 0; i < folderPath.length; i++) {
+
+                if (i > 0) {
+                    html += " > ";
+                }
+
+                html += folderPath[i].name;
+            }
+
+            document.getElementById("breadcrumb").innerHTML = html;
+        }
         async function goBack() {
 
             if (folderPath.length <= 1) {
@@ -221,6 +234,7 @@
             }
 
             folderPath.pop();
+            renderBreadcrumb();
 
             const parentFolder =
                 folderPath[folderPath.length - 1];
