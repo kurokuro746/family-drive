@@ -23,6 +23,10 @@
 
     <div id="userInfo"></div>
 
+    <button id="backButton">
+        ← 戻る
+    </button>
+
     <button id="listFilesButton">
         ファイル一覧取得
     </button>
@@ -39,6 +43,7 @@
         };
 
         const msalInstance = new msal.PublicClientApplication(msalConfig);
+        let folderHistory = [];
 
         (async () => {
 
@@ -174,8 +179,9 @@
                 console.error(error);
             }
         }
-        async function openFolder(folderId) {
 
+        async function openFolder(folderId) {
+            folderHistory.push(folderId);
             try {
                 const account =
                     msalInstance.getAllAccounts()[0];
@@ -200,6 +206,47 @@
             } catch(error) {
                 console.error(error);
             }
+        }
+
+        async function openFolderWithoutHistory(folderId) {
+            folderHistory.push(folderId);
+            try {
+                const account =
+                    msalInstance.getAllAccounts()[0];
+                const tokenResponse =
+                    await msalInstance.acquireTokenSilent({
+                        scopes: ["Files.Read"],
+                        account: account
+                    });
+                const response =
+                    await fetch(
+                        `https://graph.microsoft.com/v1.0/me/drive/items/${folderId}/children`,
+                        {
+                            headers: {
+                                Authorization:
+                                    "Bearer " +
+                                    tokenResponse.accessToken
+                            }
+                        }
+                    );
+                const data = await response.json();
+                displayFiles(data);
+            } catch(error) {
+                console.error(error);
+            }
+        }
+
+        async function goBack() {
+            if (folderHistory.length <= 1) {
+                await listFiles();
+                folderHistory = [];
+                return;
+            }
+
+            folderHistory.pop();
+            const parentFolderId =
+                folderHistory[folderHistory.length - 1];
+            await openFolderWithoutHistory(parentFolderId);
         }
 
         function showUser(account) {
@@ -238,6 +285,9 @@
             .getElementById("listFilesButton")
             .addEventListener("click", listFiles);
 
+        document
+            .getElementById("backButton")
+            .addEventListener("click", goBack);
     </script>
 
 </body>
