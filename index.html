@@ -106,7 +106,11 @@
                 } else {
                     html += `
                         <li>
-                            📄 ${item.name}
+                            📄
+                            <a href="#"
+                            onclick="openFile('${item.webUrl}')">
+                                ${item.name}
+                            </a>
                         </li>
                     `;
                 }
@@ -246,27 +250,22 @@
             renderBreadcrumb();
         }
         async function goBack() {
-
             if (folderPath.length <= 1) {
                 return;
             }
-
             folderPath.pop();
             renderBreadcrumb();
-
             const parentFolder =
                 folderPath[folderPath.length - 1];
-
             if (parentFolder.id === null) {
-
                 await listFiles();
                 return;
-
             }
-
             await openFolderById(parentFolder.id);
         }
-
+        function openFile(url) {
+            window.open(url, "_blank");
+        }
         function showUser(account) {
 
             document.getElementById("userInfo").innerHTML =
