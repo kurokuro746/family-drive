@@ -21,13 +21,13 @@
 
     <div id="userInfo"></div>
 
+    <button id="listFilesButton">
+        ファイル一覧取得
+    </button>
+
     <script>
         console.log("script start");
-        document
-            .getElementById("loginButton")
-            .addEventListener("click", () => {
-                console.log("button clicked");
-            });
+
         const msalConfig = {
             auth: {
                 clientId: "815ff81e-8462-4eb0-a444-5a63070a1425",
@@ -48,13 +48,6 @@
             if (response) {
                 showUser(response.account);
             }
-
-            const accounts = msalInstance.getAllAccounts();
-
-            if (accounts.length > 0) {
-                showUser(accounts[0]);
-            }
-
         })();
        
         async function signIn() {
@@ -92,6 +85,12 @@
 
         }
 
+        async function listFiles() {
+
+            console.log("listFiles start");
+
+        }
+
         function showUser(account) {
 
             document.getElementById("userInfo").innerHTML =
@@ -123,6 +122,10 @@
         document
             .getElementById("logoutButton")
             .addEventListener("click", signOut);
+
+        document
+            .getElementById("listFilesButton")
+            .addEventListener("click", listFiles);
 
     </script>
 
