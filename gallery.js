@@ -57,7 +57,7 @@ let folderPath = [];
 
         }
         function displayFiles(data, currentDriveId = null) {
-            let html = "<h2>OneDriveファイル一覧</h2><ul>";
+            let html = "";
             for (const item of data.value) {
 
                 if (item.folder || item.remoteItem?.folder) {
