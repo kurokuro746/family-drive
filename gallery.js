@@ -1,4 +1,4 @@
-console.log("script start4");
+console.log("script start5");
 
 const msalConfig = {
     auth: {

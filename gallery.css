@@ -1,0 +1,23 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    background: #f5f5f5;
+}
+
+h1 {
+    margin-top: 0;
+}
+
+button {
+    padding: 8px 16px;
+    margin: 4px;
+    cursor: pointer;
+}
+
+#breadcrumb {
+    margin: 15px 0;
+}
+
+#fileList {
+    margin-top: 10px;
+}
