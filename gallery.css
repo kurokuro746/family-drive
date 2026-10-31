@@ -36,3 +36,10 @@ button:hover {
     color: #666;
     font-size: 14px;
 }
+
+#accountArea {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
