@@ -1,4 +1,4 @@
-console.log("script start9");
+console.log("script start2");
 
 const msalConfig = {
     auth: {
@@ -218,15 +218,12 @@ let folderPath = [];
             }
         }
         function renderBreadcrumb() {
-
             let html = "";
-
             for (let i = 0; i < folderPath.length; i++) {
-
+                const displayName = i === 0? "ルート": folderPath[i].name;
                 if (i > 0) {
                     html += " &gt; ";
                 }
-
                 html += `
                     <a href="#"
                     onclick="navigateToBreadcrumb(${i})">
@@ -234,10 +231,10 @@ let folderPath = [];
                     </a>
                 `;
             }
-
             document.getElementById("breadcrumb").innerHTML =
                 html;
         }
+
         async function navigateToBreadcrumb(index) {
             folderPath = folderPath.slice(0, index + 1);
             const targetFolder =
