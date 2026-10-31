@@ -105,12 +105,13 @@
                 }
                 if (item.folder || item.remoteItem?.folder) {
                     const folderId = item.remoteItem?.id || item.id;
+                    const driveId = item.remoteItem?.parentReference?.driveId || null;
                     console.log("selected folder");
                     html += `
                         <li>
                             📁
                             <a href="#"
-                               onclick="openFolder('${folderId}','${item.name}', '${driveId}')">
+                               onclick="openFolder('${folderId}','${item.name}','${driveId}')">
                                 ${item.name}
                             </a>
                         </li>
@@ -188,7 +189,7 @@
                         account: account
                     });
                 let url;
-                if (driverId) {
+                if (driveId) {
                     url = `https://graph.microsoft.com/v1.0/drives/${driveId}/items/${folderId}/children`;
                 } else {
                     url = `https://graph.microsoft.com/v1.0/me/drive/items/${folderId}/children`;
