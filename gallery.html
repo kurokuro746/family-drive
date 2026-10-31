@@ -11,11 +11,8 @@
 
     <h1>Family Gallery</h1>
 // TODO
-// Familyフォルダ固定
-// 画像・動画のみ表示
-// サムネイル表示
-// 現時点でとりあえずindex.htmlのコピーしたところ。
-// gallery.html自体はコミット済み。このコメント入力版はコミットしていない。
+// 家族用アカウントでログインしてfujisada76@cap.ocn.ne.jp側で設定した共有ディレクトリの
+// 中まで見ることができたところまでは確認ずみ。
     <button id="loginButton">
         Microsoftでログイン
     </button>
@@ -63,7 +60,6 @@
         async function signIn() {
 
             try {
-
                 await msalInstance.loginRedirect({
                     scopes: [
                         "User.Read",
@@ -71,26 +67,18 @@
                         "Files.ReadWrite"
                     ]
                 });
-
             } catch (error) {
-
                 console.error(error);
-
             }
         }
 
         async function signOut() {
-
             const account = msalInstance.getAllAccounts()[0];
-
             if (account) {
-
                 await msalInstance.logoutPopup({
                     account: account
                 });
-
             }
-
             location.reload();
 
         }
@@ -110,10 +98,13 @@
                             </a>
                         </li>
                     `;
-                } else {
+                } else if (item.image || item.video) {
+                    const icon =
+                        item.image ? "🖼️" : "🎥";
+
                     html += `
                         <li>
-                            📄
+                            ${icon}
                             <a href="#"
                             onclick="openFile('${item.webUrl}')">
                                 ${item.name}
