@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Family Drive</title>
+    <title>Family Gallery</title>
 
     <script src="https://unpkg.com/@azure/msal-browser/lib/msal-browser.min.js"></script>
 </head>
 <body>
 
-    <h1>Family Drive</h1>
-
+    <h1>Family Gallery</h1>
+// TODO
+// Familyフォルダ固定
+// 画像・動画のみ表示
+// サムネイル表示
+// 現時点でとりあえずindex.htmlのコピーしたところ。
+// gallery.html自体はコミット済み。このコメント入力版はコミットしていない。
     <button id="loginButton">
         Microsoftでログイン
     </button>
@@ -91,6 +96,7 @@
         }
 
         function displayFiles(data) {
+            console.log(data);
             let html = "<h2>OneDriveファイル一覧</h2><ul>";
             for (const item of data.value) {
                 if (item.folder) {
