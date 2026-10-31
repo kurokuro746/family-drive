@@ -176,6 +176,8 @@
         }
         async function openFolder(folderId, folderName, driveId) {
             console.log("openFolder Start");
+            console.log("folderId=", folderId);
+            console.log("driveId=", driveId);
             const currentDriveId = driveId;
             folderPath.push({
                 id: folderId,
