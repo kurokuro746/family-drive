@@ -173,11 +173,6 @@
         }
         async function openFolder(folderId, folderName, driveId) {
             console.log("openFolder Start");
-            console.log("folderId=", folderId);
-            console.log("driveId=", driveId);
-            console.log("typeof=", typeof driveId);
-            console.log("driveId==null", driveId == null);
-            console.log("Boolean(driveId)", Boolean(driveId));
             folderPath.push({
                 id: folderId,
                 name: folderName
@@ -193,7 +188,7 @@
                         account: account
                     });
                 let url;
-                if (driveId) {
+                if (driveId && driveId !== "null") {
                     url = `https://graph.microsoft.com/v1.0/drives/${driveId}/items/${folderId}/children`;
                 } else {
                     url = `https://graph.microsoft.com/v1.0/me/drive/items/${folderId}/children`;
