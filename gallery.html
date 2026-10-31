@@ -101,6 +101,7 @@
             for (const item of data.value) {
                 if (item.name === "画像") {
                     console.log("画像 item =", item);
+                    console.log("remoteItem=", item.remoteItem);
                 }
                 if (item.folder || item.remoteItem?.folder) {
                     console.log("selected folder");
