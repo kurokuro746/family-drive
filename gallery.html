@@ -104,12 +104,13 @@
                     console.log("remoteItem=", item.remoteItem);
                 }
                 if (item.folder || item.remoteItem?.folder) {
+                    const folderId = item.remoteItem?.id || item.id;
                     console.log("selected folder");
                     html += `
                         <li>
                             📁
                             <a href="#"
-                               onclick="openFolder('${item.id}','${item.name}')">
+                               onclick="openFolder('${folderId}','${item.name}')">
                                 ${item.name}
                             </a>
                         </li>
@@ -171,6 +172,7 @@
         }
         async function openFolder(folderId, folderName) {
             console.log("openFolder Start");
+            console.log("folderId=", folderId);
             folderPath.push({
                 id: folderId,
                 name: folderName
