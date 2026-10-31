@@ -101,7 +101,7 @@
             let html = "<h2>OneDriveファイル一覧</h2><ul>";
             for (const item of data.value) {
                 console.log(item);
-                if (item.folder) {
+                if (item.folder || item.remoteItem?.folder) {
                     console.log("selected folder");
                     html += `
                         <li>
