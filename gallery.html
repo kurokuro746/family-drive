@@ -247,7 +247,7 @@
                 console.log(response.status);
                 const data = await response.json();
                 console.log("response data2 =", data);
-                displayFiles(data);
+                displayFiles(data, driveId);
             } catch(error) {
                 console.error(error);
             }
@@ -293,6 +293,7 @@
             renderBreadcrumb();
             const parentFolder =
                 folderPath[folderPath.length - 1];
+            console.log("goBack parentFolder=", parentFolder);
             if (parentFolder.id === null) {
                 await listFiles();
                 return;
