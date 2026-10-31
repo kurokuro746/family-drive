@@ -94,11 +94,15 @@
             location.reload();
 
         }
-
         function displayFiles(data) {
             console.log(data);
             let html = "<h2>OneDriveファイル一覧</h2><ul>";
             for (const item of data.value) {
+
+                if (item.folder || item.remoteItem?.folder) {
+                    const folderId = item.remoteItem?.id || item.id;
+                    const driveId = item.remoteItem?.parentReference?.driveId || null;
+                    console.log("selected folder");
 if (item.name === "2024-03-03") {
     console.log(
         "name=", item.name,
@@ -106,12 +110,7 @@ if (item.name === "2024-03-03") {
         "driveId=", driveId,
         "remoteItem=", item.remoteItem
     );
-}
-                if (item.folder || item.remoteItem?.folder) {
-                    const folderId = item.remoteItem?.id || item.id;
-                    const driveId = item.remoteItem?.parentReference?.driveId || null;
-                    console.log("selected folder");
-                    html += `
+}                    html += `
                         <li>
                             📁
                             <a href="#"
