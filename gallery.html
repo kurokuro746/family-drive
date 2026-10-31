@@ -99,10 +99,14 @@
             console.log(data);
             let html = "<h2>OneDriveファイル一覧</h2><ul>";
             for (const item of data.value) {
-                if (item.name === "画像") {
-                    console.log("画像 item =", item);
-                    console.log("remoteItem=", item.remoteItem);
-                }
+if (item.name === "2024-03-03")) {
+    console.log(
+        "name=", item.name,
+        "id=", item.id,
+        "driveId=", driveId,
+        "remoteItem=", item.remoteItem
+    );
+}
                 if (item.folder || item.remoteItem?.folder) {
                     const folderId = item.remoteItem?.id || item.id;
                     const driveId = item.remoteItem?.parentReference?.driveId || null;
