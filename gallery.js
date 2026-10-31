@@ -1,4 +1,4 @@
-console.log("script start3");
+console.log("script start4");
 
 const msalConfig = {
     auth: {
@@ -20,7 +20,15 @@ let folderPath = [];
 
             if (response) {
                 showUser(response.account);
-            }
+                await listFiles();
+            } else {
+                const accounts =
+                    msalInstance.getAllAccounts();
+                if (accounts.length > 0) {
+                    showUser(accounts[0]);
+                    await listFiles();
+                }
+        }
         })();
        
         async function signIn() {
@@ -359,9 +367,6 @@ let folderPath = [];
         document
             .getElementById("logoutButton")
             .addEventListener("click", signOut);
-        document
-            .getElementById("listFilesButton")
-            .addEventListener("click", listFiles);
         document
             .getElementById("backButton")
             .addEventListener("click", goBack);
