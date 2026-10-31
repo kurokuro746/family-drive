@@ -135,7 +135,8 @@
             folderPath = [
                 {
                     id: null,
-                    name: "ルート"
+                    name: "ルート",
+                    driveId: null
                 }
             ];
             renderBreadcrumb();
@@ -210,7 +211,7 @@
                 console.error(error);
             }
         }
-        async function openFolderById(folderId) {
+        async function openFolderById(folderId, driveId) {
             try {
                 const account =
                     msalInstance.getAllAccounts()[0];
@@ -219,9 +220,14 @@
                         scopes: ["Files.Read"],
                         account: account
                     });
+                let url;
+                if (driveId && driveId !== "null") {
+                    url = `https://graph.microsoft.com/v1.0/drives/${driveId}/items/${folderId}/children`;
+                } else {
+                    url = `https://graph.microsoft.com/v1.0/me/drive/items/${folderId}/children`;
+                }
                 const response =
-                    await fetch(
-                        `https://graph.microsoft.com/v1.0/me/drive/items/${folderId}/children`,
+                    await fetch(url,
                         {
                             headers: {
                                 Authorization:
@@ -268,7 +274,7 @@
                 await listFiles();
                 return;
             }
-            await openFolderById(targetFolder.id);
+            await openFolderById(targetFolder.id, targetFolder.driveId);
             renderBreadcrumb();
         }
         async function goBack() {
@@ -283,7 +289,7 @@
                 await listFiles();
                 return;
             }
-            await openFolderById(parentFolder.id);
+            await openFolderById(parentFolder.id, parentFolder.driveId);
         }
         function openFile(url) {
             window.open(url, "_blank");
