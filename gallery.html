@@ -99,17 +99,21 @@
                         </li>
                     `;
                 } else if (item.image || item.video) {
-                    const icon =
-                        item.image ? "🖼️" : "🎥";
+                    const thumbnailUrl =
+                        item.thumbnails?.[0]?.medium?.url;
 
                     html += `
-                        <li>
-                            ${icon}
-                            <a href="#"
-                            onclick="openFile('${item.webUrl}')">
-                                ${item.name}
-                            </a>
-                        </li>
+                        <div style="display:inline-block;margin:10px;">
+                            <img
+                                src="${thumbnailUrl}"
+                                style="
+                                    width:150px;
+                                    height:150px;
+                                    object-fit:cover;
+                                "
+                            >
+                            <div>${item.name}</div>
+                        </div>
                     `;
                 }
             }
@@ -172,9 +176,9 @@
                     });
                 let url;
                 if (driveId && driveId !== "null") {
-                    url = `https://graph.microsoft.com/v1.0/drives/${driveId}/items/${folderId}/children`;
+                    url = `https://graph.microsoft.com/v1.0/drives/${driveId}/items/${folderId}/children?$expand=thumbnails`;
                 } else {
-                    url = `https://graph.microsoft.com/v1.0/me/drive/items/${folderId}/children`;
+                    url = `https://graph.microsoft.com/v1.0/me/drive/items/${folderId}/children?$expand=thumbnails`;
                 }
                 const response =
                     await fetch(url,
@@ -203,9 +207,9 @@
                     });
                 let url;
                 if (driveId && driveId !== "null") {
-                    url = `https://graph.microsoft.com/v1.0/drives/${driveId}/items/${folderId}/children`;
+                    url = `https://graph.microsoft.com/v1.0/drives/${driveId}/items/${folderId}/children?$expand=thumbnails`;
                 } else {
-                    url = `https://graph.microsoft.com/v1.0/me/drive/items/${folderId}/children`;
+                    url = `https://graph.microsoft.com/v1.0/me/drive/items/${folderId}/children?$expand=thumbnails`;
                 }
                 const response =
                     await fetch(url,
