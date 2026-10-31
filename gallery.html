@@ -94,23 +94,16 @@
             location.reload();
 
         }
-        function displayFiles(data) {
+        function displayFiles(data, currentDriveId = null) {
             console.log(data);
             let html = "<h2>OneDriveファイル一覧</h2><ul>";
             for (const item of data.value) {
 
                 if (item.folder || item.remoteItem?.folder) {
                     const folderId = item.remoteItem?.id || item.id;
-                    const driveId = item.remoteItem?.parentReference?.driveId || null;
+                    const driveId = item.remoteItem?.parentReference?.driveId || currentDriveId || null;
                     console.log("selected folder");
-if (item.name === "2024-03-03") {
-    console.log(
-        "name=", item.name,
-        "id=", item.id,
-        "driveId=", driveId,
-        "remoteItem=", item.remoteItem
-    );
-}                    html += `
+                    html += `
                         <li>
                             📁
                             <a href="#"
@@ -176,9 +169,11 @@ if (item.name === "2024-03-03") {
         }
         async function openFolder(folderId, folderName, driveId) {
             console.log("openFolder Start");
+            const currentDriveId = driveId;
             folderPath.push({
                 id: folderId,
-                name: folderName
+                name: folderName,
+                driveId: driveId
             });
             renderBreadcrumb();
             console.log(folderPath);
@@ -210,7 +205,7 @@ if (item.name === "2024-03-03") {
                 console.log(response.status);
                 const data = await response.json();
                 console.log("response data1 =", data);
-                displayFiles(data);
+                displayFiles(data, currentDriveId);
             } catch(error) {
                 console.error(error);
             }
