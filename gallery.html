@@ -100,6 +100,7 @@
             let html = "<h2>OneDriveファイル一覧</h2><ul>";
             for (const item of data.value) {
                 if (item.folder) {
+                    console.log("selected folder");
                     html += `
                         <li>
                             📁
@@ -110,6 +111,7 @@
                         </li>
                     `;
                 } else {
+                    console.log("selected file");
                     html += `
                         <li>
                             📄
