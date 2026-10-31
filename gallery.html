@@ -146,6 +146,8 @@
                         account: account
                     });
                 console.log("token取得成功");
+                console.log("listFiles_folderId=", folderId);
+                console.log("listFiles_folderName=", folderName);
                 const response =
                     await fetch(
                         "https://graph.microsoft.com/v1.0/me/drive/root/children",
@@ -157,6 +159,7 @@
                             }
                         }
                     );
+                console.log(response.status);
                 const data = await response.json();
                 displayFiles(data);
             } catch(error) {
@@ -180,6 +183,7 @@
                         account: account
                     });
                 console.log("folderId1=", folderId);
+                console.log("folderName1=", folderName);
                 const response =
                     await fetch(
                         `https://graph.microsoft.com/v1.0/me/drive/items/${folderId}/children`,
@@ -191,6 +195,7 @@
                             }
                         }
                     );
+                console.log(response.status);
                 const data = await response.json();
                 displayFiles(data);
             } catch(error) {
@@ -207,6 +212,7 @@
                         account: account
                     });
                 console.log("folderId2=", folderId);
+                console.log("folderName2=", folderName);
                 const response =
                     await fetch(
                         `https://graph.microsoft.com/v1.0/me/drive/items/${folderId}/children`,
@@ -218,6 +224,7 @@
                             }
                         }
                     );
+                console.log(response.status);
                 const data = await response.json();
                 displayFiles(data);
             } catch(error) {
