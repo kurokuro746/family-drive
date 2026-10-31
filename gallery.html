@@ -98,9 +98,9 @@
         function displayFiles(data) {
             console.log(data);
             console.log("Find Here");
-            console.log(item);
             let html = "<h2>OneDriveファイル一覧</h2><ul>";
             for (const item of data.value) {
+                console.log(item);
                 if (item.folder) {
                     console.log("selected folder");
                     html += `
