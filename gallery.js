@@ -105,7 +105,7 @@ let folderPath = [];
             document.getElementById("fileList").innerHTML =
                 html;
         }
-       
+
         async function listFiles() {
             folderPath = [
                 {
@@ -139,6 +139,7 @@ let folderPath = [];
                 const data = await response.json();
                 const shortcutFolder = data.value.find(item => item.name === "ショートカット");
                 if (shortcutFolder) {
+                    folderPath = [];
                     openFolder(shortcutFolder.id, shortcutFolder.name, null);
                     return;
                 }
