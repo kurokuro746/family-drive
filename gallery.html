@@ -103,6 +103,12 @@
                     const folderId = item.remoteItem?.id || item.id;
                     const driveId = item.remoteItem?.parentReference?.driveId || currentDriveId || null;
                     console.log("selected folder");
+                    console.log(
+                        item.name,
+                        folderId,
+                        driveId,
+                        currentDriveId
+                    );
                     html += `
                         <li>
                             📁
