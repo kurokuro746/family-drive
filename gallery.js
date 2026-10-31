@@ -1,4 +1,4 @@
-console.log("script start2");
+console.log("script start3");
 
 const msalConfig = {
     auth: {
@@ -227,7 +227,7 @@ let folderPath = [];
                 html += `
                     <a href="#"
                     onclick="navigateToBreadcrumb(${i})">
-                        ${folderPath[i].name}
+                        ${displayName}
                     </a>
                 `;
             }
