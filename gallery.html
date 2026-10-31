@@ -10,9 +10,9 @@
 <body>
 
     <h1>Family Gallery</h1>
-// TODO
-// 家族用アカウントでログインしてfujisada76@cap.ocn.ne.jp側で設定した共有ディレクトリの
-// 中まで見ることができたところまでは確認ずみ。
+<-- TODO
+ 画像、動画のみを表示、サムネイル表示、サムネイル選択時に拡大表示、動画再生まで確認済み
+-->
     <button id="loginButton">
         Microsoftでログイン
     </button>
@@ -100,7 +100,6 @@
                         </li>
                     `;
                 } else if (item.image || item.video) {
-                    console.log(item);
                     const thumbnailUrl = item.thumbnails?.[0]?.medium?.url;
                     const isVideo = !!item.video;
   
