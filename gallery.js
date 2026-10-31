@@ -1,15 +1,15 @@
-        console.log("script start8");
+console.log("script start9");
 
-        const msalConfig = {
-            auth: {
-                clientId: "815ff81e-8462-4eb0-a444-5a63070a1425",
-                authority: "https://login.microsoftonline.com/consumers",
-                redirectUri: "https://kurokuro746.github.io/family-drive/"
-            }
-        };
+const msalConfig = {
+    auth: {
+        clientId: "815ff81e-8462-4eb0-a444-5a63070a1425",
+        authority: "https://login.microsoftonline.com/consumers",
+        redirectUri: "https://kurokuro746.github.io/family-drive/"
+    }
+};
 
-        const msalInstance = new msal.PublicClientApplication(msalConfig);
-        let folderPath = [];
+const msalInstance = new msal.PublicClientApplication(msalConfig);
+let folderPath = [];
 
         (async () => {
 
@@ -137,6 +137,11 @@
                         }
                     );
                 const data = await response.json();
+                const shortcutFolder = data.value.find(item => item.name === "ショートカット");
+                if (shortcutFolder) {
+                    openFolder(shortcutFolder.id, shortcutFolder.name, null);
+                    return;
+                }
                 displayFiles(data);
             } catch(error) {
                 console.error(error);
