@@ -1,4 +1,4 @@
-        console.log("script start7");
+        console.log("script start8");
 
         const msalConfig = {
             auth: {
