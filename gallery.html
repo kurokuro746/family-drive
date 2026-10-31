@@ -4,28 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Family Gallery</title>
-
+    <link rel="stylesheet" href="gallery.css">
     <script src="https://unpkg.com/@azure/msal-browser/lib/msal-browser.min.js"></script>
 </head>
 <body>
 
-    <h1>Family Gallery</h1>
-
-    <button id="loginButton">
-        Microsoftでログイン
-    </button>
-
-    <button id="logoutButton" style="display:none;">
-        ログアウト
-    </button>
-
-    <div id="breadcrumb"></div>
+    <div id="header">
+        <div>
+            <h1>Family Gallery</h1>
+            <div id="userInfo"></div>
+        </div>
+        <div>
+            <button id="loginButton">Microsoftでログイン</button>
+            <button id="logoutButton" style="display:none;">
+                ログアウト
+            </button>
+        </div>
+    </div>
+    <div id="navigation">
+        <button id="backButton">← 戻る</button>
+        <div id="breadcrumb"></div>
+    </div>
     <div id="fileList"></div>
     <div id="viewer"></div>
-    <div id="userInfo"></div>
-    <button id="backButton">
-        ← 戻る
-    </button>
 
     <script src="gallery.js"></script>
 

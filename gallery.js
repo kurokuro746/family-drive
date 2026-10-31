@@ -341,7 +341,6 @@ let folderPath = [];
 
             document.getElementById("userInfo").innerHTML =
                 `
-                <p>ログイン中</p>
                 <p>${account.username}</p>
                 `;
 

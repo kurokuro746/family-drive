@@ -1,23 +1,38 @@
 body {
-    font-family: sans-serif;
-    margin: 20px;
-    background: #f5f5f5;
+    font-family: "Segoe UI", sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
 }
 
-h1 {
-    margin-top: 0;
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+#navigation {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
 button {
+    background: #0078d4;
+    color: white;
+    border: none;
+    border-radius: 6px;
     padding: 8px 16px;
-    margin: 4px;
     cursor: pointer;
 }
 
-#breadcrumb {
-    margin: 15px 0;
+button:hover {
+    background: #106ebe;
 }
 
-#fileList {
-    margin-top: 10px;
+#userInfo {
+    color: #666;
+    font-size: 14px;
 }
