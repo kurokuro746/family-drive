@@ -3,6 +3,9 @@ body {
     background: #f4f6f8;
     margin: 0;
     padding: 20px;
+
+    height: 100vh;
+    box-sizing: border-box;
 }
 
 #header {
@@ -42,4 +45,14 @@ button:hover {
     align-items: center;
     gap: 12px;
     margin-bottom: 20px;
+}
+
+#contentArea {
+    overflow-y: auto;
+    height: calc(100vh - 180px);
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
 }
