@@ -64,13 +64,13 @@ let folderPath = [];
                     const folderId = item.remoteItem?.id || item.id;
                     const driveId = item.remoteItem?.parentReference?.driveId || currentDriveId || null;
                     html += `
-                        <li>
+                        <div class="folder-card">
                             📁
                             <a href="#"
                                onclick="openFolder('${folderId}','${item.name}','${driveId}')">
                                 ${item.name}
                             </a>
-                        </li>
+                        </div>
                     `;
                 } else if (item.image || item.video) {
                     const thumbnailUrl = item.thumbnails?.[0]?.medium?.url;
@@ -109,9 +109,7 @@ let folderPath = [];
                     `;
                 }
             }
-            html += "</ul>";
-            document.getElementById("fileList").innerHTML =
-                html;
+            document.getElementById("fileList").innerHTML = html;
         }
 
         async function listFiles() {
