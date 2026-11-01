@@ -79,17 +79,12 @@ let folderPath = [];
                     html += `
                         <div style="display:inline-block;margin:10px;position:relative;">
                             <img
+                                class="thumbnail"
                                 src="${thumbnailUrl}"
                                 onclick="viewFile(
                                     '${item["@microsoft.graph.downloadUrl"]}',
                                     '${item.image ? "image" : "video"}'
                                 )"
-                                style="
-                                    width:150px;
-                                    height:150px;
-                                    object-fit:cover;
-                                    cursor:pointer;
-                                "
                             >
                             ${isVideo ? `
                                 <div style="

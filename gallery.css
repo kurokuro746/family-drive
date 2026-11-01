@@ -83,3 +83,19 @@ ul {
     text-align: center;
 }
 
+.thumbnail-container {
+    display: inline-block;
+    margin: 10px;
+    position: relative;
+}
+
+.thumbnail {
+    width: 45vw;
+    height: 45vw;
+
+    max-width: 220px;
+    max-height: 220px;
+
+    object-fit: cover;
+    cursor: pointer;
+}
