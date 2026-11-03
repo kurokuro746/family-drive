@@ -73,6 +73,7 @@ let folderPath = [];
                         </div>
                     `;
                 } else if (item.image || item.video) {
+                    console.log(item.thumbnails);
                     const thumbnailUrl = item.thumbnails?.[0]?.medium?.url;
                     const isVideo = !!item.video;
   
